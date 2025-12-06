@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: atg-backend
+    runtime: node
+    plan: free
+
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+
+    autoDeploy: true
