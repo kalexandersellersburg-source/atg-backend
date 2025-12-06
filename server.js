@@ -13,19 +13,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ======= BASIC ROUTES (REQUIRED BY FRONTEND) =======
+// ======= BASIC ROUTES =======
 
-// Root test route
+// Root route
 app.get("/", (req, res) => {
   res.send("ATG Backend is running.");
 });
 
-// GET /test
+// Test route
 app.get("/test", (req, res) => {
   res.json({ status: "ok", message: "ATG backend test route working!" });
 });
 
-// GET /channels → reads channels.json from assets folder
+// GET /channels — load local channels.json
 app.get("/channels", (req, res) => {
   const filePath = path.join(__dirname, "channels.json");
 
@@ -38,8 +38,7 @@ app.get("/channels", (req, res) => {
   }
 });
 
-// GET /favorites/:group
-// Example: /favorites/ken OR /favorites/karen
+// Favorites (Ken / Karen)
 app.get("/favorites/:group", (req, res) => {
   const group = req.params.group.toLowerCase();
 
@@ -63,7 +62,7 @@ const SD_PASSWORD_HASH = "d6e863b000e51e6fd94aa4367e84e50b39f647b2";
 let sdToken = null;
 let tokenTimestamp = 0;
 
-// LOGIN FUNCTION
+// Login function (cached for 24 hrs)
 async function loginToSD() {
   const now = Date.now();
 
